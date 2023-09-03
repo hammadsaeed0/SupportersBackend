@@ -63,7 +63,7 @@ export const sendEmail = async (req, res, next) => {
     }
 
     const verificationCode = Math.floor(
-      100000 + Math.random() * 900000
+      1000 + Math.random() * 9000
     ).toString();
     existingUser.otp = verificationCode;
     await existingUser.save();
