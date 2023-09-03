@@ -4,7 +4,7 @@ import { LoginPatient, RegisterPatient, sendEmail, verifyOTP, showAllDoctors, ge
 const router = express.Router();
 
 router.route("/RegisterPatient").post(RegisterPatient)
-router.route("/LoginPatient").get(LoginPatient)
+router.route("/LoginPatient").post(LoginPatient)
 router.route("/SendEmailPatient").post(sendEmail)
 router.route("/verifyOTPPatient").post(verifyOTP)
 router.route("/ShowAllDoctors").get(showAllDoctors)
