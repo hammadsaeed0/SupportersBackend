@@ -322,3 +322,14 @@ export const createCustomCheckup = async (req, res, next) => {
   }
 };
 
+// Check Email
+export const checkEmail = async (req, res, next) => {
+  const { email } = req.body; // Get the email from the query parameters
+
+  // Check if the email exists in the database
+  const patient = await Patient.findOne({ email });
+  if (!patient) {
+    return next(new ErrorHandler("Invalid Email", 401));
+  }
+  res.status(201).json({ success: true, message: "Email Found", patient });
+};
