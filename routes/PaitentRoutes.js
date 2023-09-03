@@ -1,12 +1,12 @@
 import express from "express";
-import { LoginPatient, RegisterPatient, sendEmail, verifyOTP, showAllDoctors, getDoctorProfile, appointmentBook, showAllAppointments, showSingleAppointments, createCustomCheckup, checkEmail} from "../controller/PatientController.js";
+import { LoginPatient, RegisterPatient, sendEmail, verifyOTP, showAllDoctors, getDoctorProfile, appointmentBook, showAllAppointments, showSingleAppointments, createCustomCheckup, changePassword} from "../controller/PatientController.js";
 
 const router = express.Router();
 
 router.route("/RegisterPatient").post(RegisterPatient)
 router.route("/LoginPatient").post(LoginPatient)
 router.route("/SendEmailPatient").post(sendEmail)
-router.route("/checkEmail").post(checkEmail)
+router.route("/changePassword").post(changePassword)
 router.route("/verifyOTPPatient").post(verifyOTP)
 router.route("/ShowAllDoctors").get(showAllDoctors)
 router.route("/getDoctorProfile/:id").post(getDoctorProfile)

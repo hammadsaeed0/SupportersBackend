@@ -62,9 +62,7 @@ export const sendEmail = async (req, res, next) => {
       return next(new ErrorHandler("Patient Not Found", 409));
     }
 
-    const verificationCode = Math.floor(
-      1000 + Math.random() * 9000
-    ).toString();
+    const verificationCode = Math.floor(1000 + Math.random() * 9000).toString();
     existingUser.otp = verificationCode;
     await existingUser.save();
 
@@ -178,7 +176,6 @@ export const verifyOTP = async (req, res, next) => {
       return next(new ErrorHandler("Invalid OTP", 400));
     }
 
-    
     user.otp = null;
     await user.save();
 
@@ -317,13 +314,20 @@ export const createCustomCheckup = async (req, res, next) => {
 };
 
 // Check Email
-export const checkEmail = async (req, res, next) => {
-  const { email } = req.body; // Get the email from the query parameters
+export const changePassword = async (req, res, next) => {
+  const { email, password } = req.body; // Get the email from the query parameters
 
   // Check if the email exists in the database
   const patient = await Patient.findOne({ email });
   if (!patient) {
-    return next(new ErrorHandler("Invalid Email", 401));
+    return next(new ErrorHandler("Patient Not Found", 401));
   }
-  res.status(201).json({ success: true, message: "Email Found", patient });
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+  patient.password = hashedPassword;
+  await patient.save();
+
+  res
+    .status(201)
+    .json({ success: true, message: "Password updated successfully" });
 };
