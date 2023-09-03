@@ -167,7 +167,7 @@ export const sendEmail = async (req, res, next) => {
 // Very And Change Password API
 export const verifyOTP = async (req, res, next) => {
   try {
-    const { email, otp, password } = req.body;
+    const { email, otp } = req.body;
     const user = await Patient.findOne({ email });
 
     if (!user) {
@@ -178,13 +178,7 @@ export const verifyOTP = async (req, res, next) => {
       return next(new ErrorHandler("Invalid OTP", 400));
     }
 
-    // Hash the new password
-    const hashedPassword = await bcrypt.hash(password, 10); // 10 is the number of salt rounds
-
-    // Update the user's password to the hashed new password
-    user.password = hashedPassword;
-
-    // Clear the stored OTP since it has been used
+    
     user.otp = null;
     await user.save();
 
