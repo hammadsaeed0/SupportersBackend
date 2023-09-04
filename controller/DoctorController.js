@@ -19,6 +19,7 @@ export const RegisterDoctor = catchAsyncError(async (req, res, next) => {
     lastName,
     email,
     password,
+    profileImage,
     specialty,
     experienceYears,
     contactNumber,
@@ -47,6 +48,10 @@ export const RegisterDoctor = catchAsyncError(async (req, res, next) => {
     email,
     password: hashedPassword,
     specialty,
+    profileImage: { 
+      public_id: profileImage.public_id,
+      url: profileImage.url
+     },
     experienceYears,
     contactNumber,
     location,
